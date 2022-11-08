@@ -1,0 +1,148 @@
+
+"""
+1 - Desarrollar un algoritmo que permita implementar un árbol como índice para hacer consultas de 
+personajes de la saga de Star Wars, de los cuales se sabe su nombre, altura y peso. Además deberá contemplar
+ los siguientes requerimientos (debe cargar al menos 20 personajes):
+a. se debe poder cargar un nuevo personaje, modificarlo (cualquiera de sus campos) y darlo de baja;
+b. mostrar toda la información de Yoda, Mandalorian y Luke Skywalker
+c. mostrar un listado ordenado alfabéticamente de los personajes que miden menos de 0.9 metro;
+d. mostrar un listado ordenado alfabéticamente de los personajes que pesan mas de 75 kilos;
+e. mostrar un listado por nivel de los personajes del árbol;
+f. determinar si Grogu esta en el árbol y responder lo siguiente:
+mostrar toda su información;
+en que tipo de nodo esta (hoja, intermedio o raíz);
+que altura tiene el nodo dentro del árbol.
+"""
+
+from cola import Cola
+from arbol import (
+    nodoArbol,
+    insertar_nodo,
+    inorden,
+    inorden_empieza_con,
+    eliminar_nodo,
+    busqueda,
+    por_nivel,
+    preorden,
+    
+)
+
+arbol = nodoArbol()
+
+personajes = nodoArbol()
+
+
+lista = [
+    ['luke skywalker', 80, 1.72],
+    ['yoda', 30, 0.66],
+    ['mandalorian', 90, 1.95],
+    ['rey skywalker', 87, 1.70],
+    ['ben solo', 100, 1.89],
+    ['leia organa', 60, 1.50],
+    ['ezra bridger', 54, 1.65],
+    ['kanan jarrus', 75, 1.90],
+    ['pong krell', 130, 2.36],
+    ['kit fisto', 94, 1.96],
+    ['yaddle', 54, 0.61],
+    ['mace windur', 54, 1.92],
+    ['obi-wan kenobi', 80, 1.82],
+    ['depa billaba', 59, 1.68],
+    ['luminara unduli', 64, 1.76],
+    ['barriss offee', 75, 1.66],
+    ['coleman trebor', 54, 2.13],
+    ['jocasta nu', 54, 1.69],
+    ['aayla secura', 54, 1.72],
+    ['count dooku', 54, 1.93],
+]
+
+for nombre, peso, altura in lista:
+    datos = {'peso': peso,
+             'altura': altura}
+    insertar_nodo(arbol,nombre,datos)
+
+#inorden(arbol)
+#print()
+
+name = input('Ingrese el Nombre del personaje a Cargar:\n')
+clave=input('Ingrese el peso:\n')
+clave=input('Ingrese la altura:\n')
+datos_guardados=arbol['datos']
+insertar_nodo(arbol, name, datos)
+
+clave = input('ingrese parte de lo que desea buscar: ')
+inorden_empieza_con(arbol, clave)
+print()
+clave = input('ingrese nombre que desea modificar: ')
+print()
+datos_guardados=arbol['datos']
+pos = eliminar_nodo(arbol, clave)
+if pos:
+    name = input('ingrese nuevo nombre: ')
+    insertar_nodo(arbol, name, datos_guardados)
+else:
+    print('valor no encontrado en el arbol')
+print()
+inorden(arbol)
+print()
+clave = input('ingrese parte de lo que desea dar de baja: ')
+inorden_empieza_con(arbol, clave)
+print()
+clave = input('ingrese nombre que desea eliminar: ')
+print()
+datos_guardados=arbol['datos']
+pos = eliminar_nodo(arbol, clave)
+
+preorden(arbol)
+print('Buscar informacion.')
+
+
+print(busqueda(arbol, 'mandalorian'))
+print()
+print(busqueda(arbol, 'yoda'))
+print()
+print(busqueda(arbol,'luke skywalker'))
+print()
+
+def inorden_altura(arbol):
+    if(arbol is not None):
+        inorden_altura(arbol['izq'])
+        if arbol['datos']['altura'] < 0.9:
+            print(arbol['info'],arbol['datos']['altura'])
+        inorden_altura(arbol['der'])
+print('mostrar un listado ordenado alfabéticamente de los personajes que miden menos de 0.9 metro')
+inorden_altura(arbol)
+
+print()
+print('mostrar un listado ordenado alfabéticamente de los personajes que pesan mas de 75 kilos')
+def inorden_peso(arbol):
+    if(arbol is not None):
+        inorden_peso(arbol['izq'])
+        if arbol['datos']['peso'] > 75:
+            print(arbol['info'],arbol['datos']['peso'])
+        inorden_peso(arbol['der'])
+
+
+inorden_peso(arbol)
+
+
+print('e - listado por Nivel \n-----------------------------')
+por_nivel(arbol)
+
+
+
+
+
+if (busqueda(arbol, 'Grogu')):
+    print('Grogu está')
+    buscado=(busqueda(arbol, 'Grogu'))
+    print(buscado)
+    if arbol['info']=='Grogu':
+        print('Es Raíz')
+    elif buscado['der'] is None and buscado['izq'] is None:
+        print('Es hoja')
+    else:
+        print ('Esta en una posición intermedio')
+else:
+    print('Grogu no está')
+    altu_arbol=(altura(arbol))
+    
