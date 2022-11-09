@@ -72,21 +72,33 @@ print()
 #print(f"el peso total es {peso_total}")
 
 
-g.barrido_profundidad('C-3PO')
-print()
-g.barrido_profundidad('Yoda')
-print('------------------------------------------')
-g.barrido_profundidad('Leia')
-print()
-    
-print('Desde C-3PO')
-g.barrido_profundidad('C-3PO')
-print()
+#g.barrido_profundidad('C-3PO')
+#print()
+#g.barrido_profundidad('Yoda')
+#print('------------------------------------------')
+#g.barrido_profundidad('Leia')
+#print()
+#    
+#print('Desde C-3PO')
+#g.barrido_profundidad('C-3PO')
+#print()
+#
+#print('Desde Yoda')
+#g.barrido_profundidad('Yoda')
+#print()
+#
+#print('Desde Leia')
+#g.barrido_profundidad('Leia')
+#print()
+#
+#g.barrido_amplitud('Yoda')
 
-print('Desde Yoda')
-g.barrido_profundidad('Yoda')
-print()
 
-print('Desde Leia')
-g.barrido_profundidad('Leia')
+
 print()
+print('c. Quienes compartieron dos o mas episodios: ')
+g.episodios_compartidos()
+
+print()
+print('e. Quien compartio más episodios con otro personaje: ')
+print(g.mas_episodios())
